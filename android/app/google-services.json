@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "517868820005",
+    "firebase_url": "https://penda-db.firebaseio.com",
+    "project_id": "penda-db",
+    "storage_bucket": "penda-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517868820005:android:171c00b3edb9e70fd4d1cc",
+        "android_client_info": {
+          "package_name": "com.example.penda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517868820005-abo6etl219p71omoljgvji1aaachtv6h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.penda",
+            "certificate_hash": "477ac8965d3fea8047b65a93c1c5c46ed9d39053"
+          }
+        },
+        {
+          "client_id": "517868820005-gt6mem33381jc8h0o709bk5h69846mln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhnHopksnlgIkifQfUaL02pS2NUujrBTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517868820005-gt6mem33381jc8h0o709bk5h69846mln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
