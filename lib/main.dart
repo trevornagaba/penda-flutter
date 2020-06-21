@@ -55,16 +55,16 @@ final dummyCauseSnapshot = [
     "category": "event",
     "contributors": ["", ""]
   },
-  {
-    "title": "event une",
-    "description": "",
-    "creator": "Daudi Kaze",
-    "target_amount": 100000,
-    "due_date": "31/12/2020",
-    "current_amount": 20000,
-    "category": "event",
-    "contributors": ["", ""]
-  },
+  // {
+  //   "title": "event une",
+  //   "description": "",
+  //   "creator": "Daudi Kaze",
+  //   "target_amount": 100000,
+  //   "due_date": "31/12/2020",
+  //   "current_amount": 20000,
+  //   "category": "event",
+  //   "contributors": ["", ""]
+  // },
 ];
 
 class MyApp extends StatelessWidget {
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget _buildBody(BuildContext context) {
-  return _buildList(context, dummyUserSnapshot, dummyUserSnapshot);
+  return _buildList(context, dummyUserSnapshot, dummyCauseSnapshot);
 }
 
 Widget _buildList(
@@ -99,7 +99,7 @@ Widget _buildList(
   return ListView(
     padding: const EdgeInsets.only(top: 20.0),
     children:
-        userSnapshot.map((data) => _buildListItem(context, data)).toList(),
+        causeSnapshot.map((data) => _buildListItem(context, data)).toList(),
   );
 }
 
@@ -112,5 +112,6 @@ Widget _buildListItem(BuildContext context, Map data) {
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: Card(
+              margin: EdgeInsets.all(10),
               child: Column(children: <Widget>[Text('Dummy text here')]))));
 }
