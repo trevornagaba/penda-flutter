@@ -59,16 +59,16 @@ final dummyCauseSnapshot = [
     "category": "event",
     "contributors": ["", ""]
   },
-  // {
-  //   "title": "event une",
-  //   "description": "",
-  //   "creator": "Daudi Kaze",
-  //   "target_amount": 100000,
-  //   "due_date": "31/12/2020",
-  //   "current_amount": 20000,
-  //   "category": "event",
-  //   "contributors": ["", ""]
-  // },
+  {
+    "title": "event une",
+    "description": "",
+    "creator": "Daudi Kaze",
+    "target_amount": 100000,
+    "due_date": "31/12/2020",
+    "current_amount": 20000,
+    "category": "event",
+    "contributors": ["", ""]
+  },
 ];
 
 class MyApp extends StatelessWidget {
