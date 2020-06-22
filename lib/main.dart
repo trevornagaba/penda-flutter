@@ -98,7 +98,9 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody(BuildContext context) {
     // return _buildList(context, dummyUserSnapshot, dummyCauseSnapshot);
 
-    // Get actual snapshot from Cloud Firestore
+    // TO-DO
+    // Read data from both user and causes stream
+    // The below gets actual snapshot from Cloud Firestore
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection('causes').snapshots(), 
       builder: (context, snapshot) {
