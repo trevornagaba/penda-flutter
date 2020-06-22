@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
@@ -95,11 +96,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return _buildList(context, dummyUserSnapshot, dummyCauseSnapshot);
+    // return _buildList(context, dummyUserSnapshot, dummyCauseSnapshot);
+
+    // Get actual snapshot from Cloud Firestore
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('causes').snapshots(), 
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildList(context, snapshot.data.documents);
+      },
+    );
   }
 
   Widget _buildList(
-      BuildContext context, List<Map> userSnapshot, List<Map> causeSnapshot) {
+      BuildContext context, List<DocumentSnapshot> causeSnapshot) {
     return ListView(
       padding: const EdgeInsets.only(top: 0.0),
       children:
@@ -107,7 +118,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildListItem(BuildContext context, Map data) {
+  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Card(
@@ -123,11 +134,11 @@ class _HomePageState extends State<HomePage> {
                 Container(
                     padding: const EdgeInsets.all(15.0),
                     child: (Text(
-                      'dummy title text here',
+                      data['title'],
                     ))),
                 Container(
                     padding: const EdgeInsets.only(left: 65.0),
-                    child: Text('UGX 100,000'))
+                    child: Text((data['target_amount']).toString()))
               ]),
               Row(children: <Widget>[
                 Container(
@@ -135,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                     // TO-DO
                     // make padding screenresponsive
                     child: Text(
-                      'dummy description text here',
+                      data['description'],
                       // TO-DO
                       // find a way to wrap the description
                       overflow: TextOverflow.ellipsis,
@@ -162,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {Navigator.pushNamed(context, '/cause');}, // Add the navigator to go to a cause
                       )
                     ], alignment: MainAxisAlignment.start)),
-                Text('due date: 31/12/2020')
+                Text('due date:' + (data['due_date']).toString())
               ])
             ])));
   }
