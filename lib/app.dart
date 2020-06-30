@@ -16,6 +16,7 @@ class PendaApp extends StatelessWidget {
       home: HomePage(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
       '/detail': (BuildContext context) => DetailPage(),
+      // TO-DO: Add routes to other pages like payments, and later create cause, mycause and withdraw
     },
     );
   }

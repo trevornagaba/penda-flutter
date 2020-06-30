@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
                         color: Colors.white),
                     width: MediaQuery.of(context).size.width,
                     child: Text(
-                      "Sign Up with Google",
+                      "Sign Up  with Google",
                       style:
                           TextStyle(fontSize: 17, color: Colors.blue),
                       textAlign: TextAlign.center,
