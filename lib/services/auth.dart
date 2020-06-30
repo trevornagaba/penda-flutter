@@ -7,8 +7,13 @@ import 'package:flutter/services.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // Return a userid from the firebase user object
+  // This is done by calling the User method from the User class
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    //TO-DO: Maybe include username as
+    return user != null
+        ? User(uid: user.uid)
+        : null; // So as not to crash the app incase user returns null. Everything is null by default
   }
 
   Future<FirebaseUser> signInWithGoogle(BuildContext context) async {
@@ -27,8 +32,10 @@ class AuthService {
     FirebaseUser userDetails = result.user;
 
     if (result == null) {
+      print('Result is null');
     } else {
-      Navigator.pushNamed(context, '/detail');
+      print('user' + result.user.toString());
+      Navigator.pushReplacementNamed(context, '/home'); // Note that we would otherwise use pushReplacement for signin as this prevents the user from going back
     }
   }
 

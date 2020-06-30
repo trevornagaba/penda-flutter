@@ -16,7 +16,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(PendaApp());
 
-    //TO-DO: Replace the below
+    //TODO: Replace the below
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-to-do.text
+TODO.text
 
 # IntelliJ related
 *.iml

@@ -21,7 +21,7 @@ class AppStateModel extends foundation.ChangeNotifier {
     notifyListeners();
   }
 
-  void contributeToEvent(int EventId) {
-    // TO-DO: Add flutterwave payments logic
+  void contributeToEvent(int eventId) {
+    // TODO: Add flutterwave payments logic
   }
 }

@@ -1,0 +1,14 @@
+1. Align the cause and event naming disceprancy issue
+2. Add event categories when ready to add tabs to app
+3. Refer to how he built login form when making create cause view
+4. Create seperate styles for different text styles
+5. Add user to db on first signin
+6. Centre the enter id text box when it is implemented (Written but not working)
+6b. Give it a background color
+7. Connect to the flutterwave api
+8. Delete events repository
+9. What is the text editing controller
+
+Immediate
+1. Successfully get firebase details (username, email) in addition to id from the user.dart class
+2. Figureout how to pass event id as a parameter to the detail class

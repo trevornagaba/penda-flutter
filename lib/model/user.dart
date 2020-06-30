@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class User {
-  
+  //TODO: Add username as well apart from id
   final String uid;
   User({this.uid});
 
@@ -30,6 +30,6 @@ Or perhaps it is actually not necessary at all
   // final List<Map<String, String>> myContributions;
 
 /*
-TO-DO: Include image upload for profile
+TODO: Include image upload for profile
 */
 }

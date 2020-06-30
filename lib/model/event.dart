@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 /*
-TO-DO Define event categories on expansion
+TODO Define event categories on expansion
  */
 // enum Category {
 //   all,
@@ -42,7 +42,7 @@ class Event {
   final Map<String, int> contributors;
 
 /*
-TO-DO: Include image upload
+TODO: Include image upload
  */
   // String get assetName => '$id-0.jpg';
   // String get assetPackage => 'shrine_images';

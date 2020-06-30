@@ -1,4 +1,4 @@
-// TO-DO: Connect to firestore
+// TODO: Connect to firestore
 
 import 'event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,7 +38,7 @@ class EventRepository {
 // class EventStream {
 //   static List<QuerySnapshot> loadEvents() {
 //     return StreamBuilder<QuerySnapshot>(
-//       stream: Firestore.instance.collection('causes').snapshots(), 
+//       stream: Firestore.instance.collection('causes').snapshots(),
 //       builder: (context, snapshot) {
 //         if (!snapshot.hasData) return LinearProgressIndicator();
 
