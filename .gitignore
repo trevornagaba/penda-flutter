@@ -9,6 +9,7 @@
 .history
 .svn/
 TODO.text
+.env
 
 # IntelliJ related
 *.iml

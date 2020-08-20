@@ -8,7 +8,3 @@
 7. Connect to the flutterwave api
 8. Delete events repository
 9. What is the text editing controller
-
-Immediate
-1. Successfully get firebase details (username, email) in addition to id from the user.dart class
-2. Figureout how to pass event id as a parameter to the detail class

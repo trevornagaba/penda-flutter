@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "517868820005-d22e033gl7m6so7i6a90711hnfue01ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.penda",
+            "certificate_hash": "2319b9a7f9b7c13a047c890375c63c3111ec6501"
+          }
+        },
+        {
           "client_id": "517868820005-abo6etl219p71omoljgvji1aaachtv6h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

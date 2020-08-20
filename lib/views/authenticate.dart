@@ -17,15 +17,38 @@ class _AuthenticateState extends State<Authenticate> {
     setState(() {
       isLoading = true;
     });
+    
+    await authService.signInWithGoogle(context).then((result) async { //TODO: Every signin should allow user select and account
+    //TODO: Signin should persist until user selects to signout
+      if (result != null) {
+        Map<String, String> userInfoMap = {
+          //T0DO: Do not add user if already exists
+          'name': result.displayName,
+          'email': result.email,
+          'photoUrl': result.photoUrl,
+          'id': result.uid
+        };
 
-    await authService.signInWithGoogle(context).then((result) {
-      
-      Map<String, String> userInfoMap = {
-        'name': 'test_name',
-        'email': 'test_email'
-      };
+        var userDocument;
 
-      databaseMethods.uploadUserInfo(userInfoMap);
+        databaseMethods.getUserbyEmail(result.email).then((val) {
+          if (val.documents.length > 0) {
+            val.documents.forEach((document) {
+              userDocument = document.data;
+            });
+          } else {
+            databaseMethods.uploadUserInfo(userInfoMap);
+          }
+          Navigator.pushReplacementNamed(context, '/home');
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Login failed"), //T0DO: This is not working
+          ));
+        });
+      }
     });
   }
 
@@ -51,6 +74,7 @@ class _AuthenticateState extends State<Authenticate> {
                   GestureDetector(
                     onTap: () {
                       // Defined at the top of this class
+                      //TODO: Causes load before signin is complete yet async loading function is expected first
                       loadingSignInfunction();
                     },
                     child: Container(

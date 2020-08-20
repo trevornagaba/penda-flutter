@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:penda/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:penda/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
   // Return a userid from the firebase user object
   // This is done by calling the User method from the User class
@@ -18,6 +25,8 @@ class AuthService {
 
   Future<FirebaseUser> signInWithGoogle(BuildContext context) async {
     final GoogleSignIn _googleSignIn = new GoogleSignIn();
+    DatabaseMethods databaseMethods = new DatabaseMethods();
+    DocumentSnapshot userSnapshot;
 
     final GoogleSignInAccount googleSignInAccount =
         await _googleSignIn.signIn();
@@ -33,14 +42,19 @@ class AuthService {
 
     if (result == null) {
       print('Result is null');
+      return null;
     } else {
-      print('user' + result.user.toString());
-      Navigator.pushReplacementNamed(context, '/home'); // Note that we would otherwise use pushReplacement for signin as this prevents the user from going back
+      //     Navigator.pushReplacementNamed(context, '/home');
+      return userDetails;
+      //     // return _auth.currentUser(); //TODO: This i believe is the real way to get user details
+      //   }
+      // });
     }
   }
 
   Future signOut() async {
     try {
+      await _googleSignIn.disconnect(); //TODO: This isn't working as expected to make the signin select a google account
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
