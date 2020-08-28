@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:penda/services/database.dart';
-import 'package:penda/widgets/eventCard.dart';
+import 'package:penda/widgets/myEventsCard.dart';
 
 class MyEvents extends StatefulWidget {
   @override
@@ -48,6 +48,6 @@ class _MyEventsState extends State<MyEvents> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    return new EventCard(data);
+    return new MyEventsCard(data);
   }
 }

@@ -9,7 +9,10 @@ import 'package:penda/views/details.dart';
 import 'package:penda/views/goto.dart';
 import 'package:penda/views/home.dart';
 import 'package:penda/views/myContributions.dart';
+import 'package:penda/views/myContributionsSummary.dart';
 import 'package:penda/views/myEvents.dart';
+import 'package:penda/views/myProfile.dart';
+import 'package:penda/views/withdraw.dart';
 
 class CollectApp extends StatefulWidget {
   _CollectAppState createState() => _CollectAppState();
@@ -49,14 +52,18 @@ class _CollectAppState extends State<CollectApp> {
         '/home': (BuildContext context) => Home(),
         '/detail': (BuildContext context) =>
             Details(), //TDO; perhaps add arguement by incuding a /$eventId
-        '/goto': (BuildContext context) => Goto(), // Point to the Goto class
+        '/goto': (BuildContext context) => Goto(),
         '/contribute': (BuildContext context) =>
-            Contribute(), // Point to the Contribute class
+            Contribute(),
+        '/withdraw': (BuildContext context) =>
+            Withdraw(),
         '/createCause': (BuildContext context) =>
-            CreateCause(), // Point to the createCause class
+            CreateCause(),
         '/myEvents': (BuildContext context) =>
             MyEvents(), // Point to the myEvents class
         '/myContributions': (BuildContext context) => MyContributions(),
+        '/myProfile': (BuildContext context) => MyProfile(),
+        '/myContributionsSummary': (BuildContext context) => MyContributionsSummary(),
         '/contributeWebView': (BuildContext context) => ContributeWebView() //Point to the ContributeWebView class
         // '/myProfile': (BuildContext context) => MyProflie(), // Point to the Goto class
       },

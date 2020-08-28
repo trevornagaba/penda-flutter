@@ -26,7 +26,6 @@ class AuthService {
   Future<FirebaseUser> signInWithGoogle(BuildContext context) async {
     final GoogleSignIn _googleSignIn = new GoogleSignIn();
     DatabaseMethods databaseMethods = new DatabaseMethods();
-    DocumentSnapshot userSnapshot;
 
     final GoogleSignInAccount googleSignInAccount =
         await _googleSignIn.signIn();

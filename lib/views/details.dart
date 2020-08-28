@@ -15,22 +15,20 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     DocumentSnapshot eventDetails = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
-      appBar: AppBar(title: Text("Details")),
+      appBar: AppBar(title: Text("Details"), actions: <Widget>[
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.share)),
+        )
+      ]),
       body: _buildListItem(context, eventDetails), // TODO
     );
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     return EventCardDetailed(data);
-  }
-
-  Widget _buildContributorsList(BuildContext context, data) {
-    return ListTile(
-      title: Text(data['contributors']['FUYaI2UaBJSEi6evddEDllh69a82']['name']),
-      trailing:
-          Text(data['contributors']['FUYaI2UaBJSEi6evddEDllh69a82']['amount']),
-    );
   }
 }

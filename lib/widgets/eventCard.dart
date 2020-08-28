@@ -7,6 +7,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // I need this because the build method will not accept data as an argument, it takes only one arguement
     return card(context, data);
   }
 
@@ -43,20 +44,18 @@ class EventCard extends StatelessWidget {
               Row(children: <Widget>[
                 Container(
                     padding: const EdgeInsets.only(left: 15.0, right: 60),
-                    // height: 200,
-                    width: 400,
                     // TODO
                     // make padding screenresponsive
                     child: Row(children: [
                       Icon(Icons.description),
                       Text(' Details: ',
                           style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(
-                        data['description'],
-                        // TODO
-                        // find a way to wrap the description
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
+                      SizedBox(width: 180,
+                                              child: Text(
+                          data['description'],
+                          overflow: TextOverflow.ellipsis,
+                          // softWrap: true,
+                        ),
                       )
                     ]) // text lines will fill the column width before wrapping at a word boundary
                     )
@@ -81,6 +80,7 @@ class EventCard extends StatelessWidget {
                       RaisedButton(
                         child: Text('expand'), color: Colors.blue,
                         onPressed: () {
+                          print(data);
                           Navigator.pushNamed(context, '/detail',
                               arguments: data);
                         }, // Add the navigator to go to a detail

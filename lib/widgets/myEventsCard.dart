@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class EventCardDetailed extends StatelessWidget {
-  const EventCardDetailed(this.data);
+class MyEventsCard extends StatelessWidget {
+  const MyEventsCard(this.data);
   final data;
 
   @override
@@ -52,12 +52,8 @@ class EventCardDetailed extends StatelessWidget {
                   Icon(Icons.description),
                   Text(' Details: ',
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(width: 186, //TODO: Make this wrap
-                                      child: Text(
-                        data['description'], maxLines: 3,
-                    softWrap: false,
-                    overflow: TextOverflow.fade,
-                      ),
+                  Text(
+                    data['description'],
                   )
                 ])),
           ]),
@@ -73,7 +69,7 @@ class EventCardDetailed extends StatelessWidget {
           ]),
           Row(children: <Widget>[
             Container(
-                padding: const EdgeInsets.only(left:15.0),
+                padding: const EdgeInsets.only(left: 15.0),
                 child: Row(children: [
                   Icon(Icons.monetization_on),
                   (Text(' Current Amount: ',
@@ -87,13 +83,15 @@ class EventCardDetailed extends StatelessWidget {
                 width: 220,
                 child: ButtonBar(children: [
                   RaisedButton(
-                    child: Text('contribute'),
+                    child: Text('withdraw'),
                     color: Colors.blue,
                     onPressed: () async {
                       final FirebaseUser currentUser =
                           await _auth.currentUser();
-                      Navigator.pushNamed(context, '/contribute',
-                          arguments: {'eventData': data, 'user': currentUser});
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('unimplemented')));
+                      // Navigator.pushNamed(context, '/withdraw',
+                      //     arguments: {'eventData': data, 'user': currentUser});
                     },
                   )
                 ], alignment: MainAxisAlignment.start)),
@@ -126,8 +124,8 @@ class EventCardDetailed extends StatelessWidget {
                 }));
               },
             ),
-          ]),
-          ]));
+          ])
+        ]));
   }
 
   Widget _buildRow(contributors) {

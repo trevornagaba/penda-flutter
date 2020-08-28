@@ -26,6 +26,13 @@ class DatabaseMethods {
     return await Firestore.instance.collection('causes').add(causeMap);
   }
 
+  updateProfile(userProfile, id) { //TODO: This is not working
+    Firestore.instance
+        .collection('users')
+        .document(id)
+        .updateData(userProfile);
+  }
+
   getEventbyUserId(userId) async {
     return await Firestore.instance
         .collection('causes')
@@ -37,6 +44,20 @@ class DatabaseMethods {
     return await Firestore.instance
         .collection('users')
         .where('email', isEqualTo: email)
+        .getDocuments();
+  }
+
+  getEventbyContributorId(id) async {
+    return await Firestore.instance
+        .collection('causes')
+        .where('contributors', isEqualTo: id)
+        .getDocuments();
+  }
+
+  getUserbyId(userId) async {
+    return await Firestore.instance
+        .collection('causes')
+        .where('id', isEqualTo: userId)
         .getDocuments();
   }
 }

@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   AuthService authService = new AuthService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  var events;
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
 
@@ -23,9 +24,38 @@ class _HomeState extends State<Home> {
             currentUser.uid); //TODO: Define my causes class; style this also
   }
 
+  buildStream() {
+    return StreamBuilder(
+        stream: Firestore.instance.collection('causes').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return null;
+          events = snapshot.data.documents;
+          return snapshot.data.documents;
+        });
+  }
+
   getCurrentUserName() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     return currentUser.displayName;
+  }
+
+  void getContributions() async {
+    final FirebaseUser currentUser = await _auth.currentUser();
+    var userSnapshot = databaseMethods.getUserbyId(currentUser.uid);
+    print(userSnapshot);
+    Navigator.pushNamed(context, '/myContributionsSummary',
+        arguments: currentUser.uid);
+  }
+
+  void getProfile() async {
+    final FirebaseUser currentUser = await _auth.currentUser();
+    Navigator.pushNamed(context, '/myProfile', arguments: {
+      'name': currentUser.displayName,
+      'email': currentUser.email,
+      'photo': currentUser.photoUrl,
+      'phoneNumber': currentUser.phoneNumber,
+      'id': currentUser.uid
+    });
   }
 
   @override
@@ -36,9 +66,7 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignIn()));
-              Navigator.pushReplacementNamed(
-                  context, '/search'); //TODO: Implement search functionality
+              showSearch(context: context, delegate: EventSearch());
             },
             child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
@@ -68,15 +96,12 @@ class _HomeState extends State<Home> {
           ListTile(title: Text('My events'), onTap: getEventbyUserId),
           ListTile(
             title: Text('My contributions'),
-            onTap: () {
-              Navigator.pushNamed(context, '/myContributions');
-            },
+            onTap: getContributions,
           ),
           ListTile(
             title: Text('My profile'),
             onTap: () {
-              Navigator.pushNamed(context,
-                  '/myprofile'); //TODO: Define my profile class; style this also
+              getProfile(); //TODO: Define my profile class; style this also
             },
           ),
           ListTile(
@@ -104,12 +129,10 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildBody(BuildContext context) {
-    // return _buildList(context, dummyUserSnapshot, dummydetailSnapshot);
-
     // TODO
-    // Read data from both user and details stream
     // The below gets actual snapshot from Cloud Firestore
     return StreamBuilder<QuerySnapshot>(
+      //TODO: Take this out so you can call it only once even for the search, look at implementations of blocs
       stream: Firestore.instance.collection('causes').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
@@ -130,5 +153,91 @@ class _HomeState extends State<Home> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     return new EventCard(data);
+  }
+}
+
+class EventSearch extends SearchDelegate {
+  // final Future<QuerySnapshot> events;
+
+  // EventSearch(this.events);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // TODO: implement buildActions
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return StreamBuilder(
+        stream: Firestore.instance.collection('causes').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text('No Data'));
+          }
+          final results = snapshot.data.documents
+              .where((a) => a['title'].toLowerCase().contains(query.toLowerCase()));
+
+          return ListView(
+              children: results
+                  .map<ListTile>((a) => ListTile(
+                        title: Text(
+                          a['title'],
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Text(
+                          a['creator'].toString(),
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/detail', arguments: a);
+                        },
+                      ))
+                  .toList());
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return StreamBuilder(
+        stream: Firestore.instance.collection('causes').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text('No Data'));
+          }
+          final results = snapshot.data.documents
+              .where((a) => a['title'].toLowerCase().contains(query.toLowerCase()));
+
+          return ListView(
+              children: results
+                  .map<ListTile>((a) => ListTile(
+                        title: Text(
+                          a['title'],
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        trailing: Text(a['creator'].toString(),
+                            style: TextStyle(color: Colors.blue)),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/detail', arguments: a);
+                        },
+                      ))
+                  .toList());
+        });
   }
 }

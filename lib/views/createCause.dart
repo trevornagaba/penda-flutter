@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:penda/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
+import 'package:image_picker/image_picker.dart';
 
 /// This Widget is the main application widget.
 class CreateCause extends StatefulWidget {
@@ -19,6 +20,9 @@ class CreateCause extends StatefulWidget {
 }
 
 class _CreateCauseState extends State<CreateCause> {
+  PickedFile _image;
+  final picker = ImagePicker();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -48,8 +52,19 @@ class _CreateCauseState extends State<CreateCause> {
     };
     databaseMethods.createCause(causeMap);
     Navigator.pushReplacementNamed(context, '/home');
-    // return Scaffold.of(context)
-    //     .showSnackBar(SnackBar(content: Text("Cause succesfully created")));
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text('Processing transaction'),
+      duration: Duration(milliseconds: 1000),
+    ));
+  }
+
+  Future getImage() async {
+    print('here');
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = PickedFile(pickedFile.path);
+    });
   }
 
   @override
@@ -230,33 +245,21 @@ class _CreateCauseState extends State<CreateCause> {
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'upload image', //TODO: Make this a dropdown list
-                    hintStyle: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.grey.shade500,
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  controller: _imageController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
+                SizedBox(
+                    child: IconButton(
+                  icon: Icon(Icons.add_a_photo),
+                  onPressed: () {
+                    getImage();
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('unimplemented')));
                   },
-                ),
+                  iconSize: 40,
+                )),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: RaisedButton(color: Colors.blue,textColor: Colors.white,
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
                     onPressed: () {
                       // TODO: Add functionality for validation
                       // Validate will return true if the form is valid, or false if

@@ -13,12 +13,12 @@ import 'package:penda/services/networking.dart';
 // import 'package:flutter_rave/requery_response.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class Contribute extends StatefulWidget {
+class Withdraw extends StatefulWidget {
   @override
-  _ContributeState createState() => _ContributeState();
+  _WithdrawState createState() => _WithdrawState();
 }
 
-class _ContributeState extends State<Contribute> {
+class _WithdrawState extends State<Withdraw> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final _phoneController = TextEditingController();
   final _amountController = TextEditingController();
